@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 21-10-2025 a las 04:42:22
--- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Servidor: localhost
+-- Tiempo de generación: 03-11-2025 a las 19:41:35
+-- Versión del servidor: 10.4.28-MariaDB
+-- Versión de PHP: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,8 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de datos: `cine`
 --
-CREATE DATABASE IF NOT EXISTS `cine` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `cine`;
 
 -- --------------------------------------------------------
 
@@ -75,7 +73,22 @@ INSERT INTO `peliculas` (`id`, `titulo`, `duracion`, `anio`, `portada`, `id_dire
 (8, 'The Wolf of Wall Street', 180, 2013, 'https://m.media-amazon.com/images/I/71Wp80+pLhL._AC_UF1000,1000_QL80_.jpg', 4),
 (9, 'Shutter Island', 138, 2010, 'https://m.media-amazon.com/images/I/81FNja+9-iL._AC_UF1000,1000_QL80_.jpg', 4),
 (10, 'Titanic', 195, 1997, 'https://m.media-amazon.com/images/I/71i6L1vZjiL.jpg', 5),
-(11, 'Avatar', 162, 2009, 'https://m.media-amazon.com/images/I/91N1lG+LBIS._AC_UF1000,1000_QL80_.jpg', 5);
+(11, 'Avatar', 162, 32009, 'https://m.media-amazon.com/images/I/91N1lG+LBIS._AC_UF1000,1000_QL80_.jpg', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `resenias_peliculas`
+--
+
+CREATE TABLE `resenias_peliculas` (
+  `id` int(11) NOT NULL,
+  `id_pelicula` int(11) NOT NULL,
+  `usuario` varchar(100) NOT NULL,
+  `comentario` text NOT NULL,
+  `puntaje` int(2) NOT NULL CHECK (`puntaje` between 1 and 5),
+  `fecha` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -115,6 +128,13 @@ ALTER TABLE `peliculas`
   ADD KEY `fk_director` (`id_director`);
 
 --
+-- Indices de la tabla `resenias_peliculas`
+--
+ALTER TABLE `resenias_peliculas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pelicula` (`id_pelicula`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -135,7 +155,13 @@ ALTER TABLE `directores`
 -- AUTO_INCREMENT de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT de la tabla `resenias_peliculas`
+--
+ALTER TABLE `resenias_peliculas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -152,6 +178,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `peliculas`
   ADD CONSTRAINT `fk_director` FOREIGN KEY (`id_director`) REFERENCES `directores` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `resenias_peliculas`
+--
+ALTER TABLE `resenias_peliculas`
+  ADD CONSTRAINT `resenias_peliculas_ibfk_1` FOREIGN KEY (`id_pelicula`) REFERENCES `peliculas` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
