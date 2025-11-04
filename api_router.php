@@ -1,28 +1,26 @@
 <?php
 require_once './libs/router/router.php';
-require_once './app/middlewares/guard-api.middleware.php';
-require_once './app/middlewares/jwt.middleware.php';
 
-require_once 'app/controllers/directoresController.php';
-require_once 'app/controllers/peliculasController.php';
+require_once './app/controllers/peliculasController.php';
+require_once './app/controllers/reseniasController.php';
+require_once './app/controllers/directoresController.php';
 
-$router= new Router();
-$router->addMiddleware(new JWTMiddleware());
 
-$router->addRoute('auth/login',     'GET',     'AuthApiController',    'login');
+$router = new Router();
 
-$router->addRoute('api/peliculas',         'GET',      'TaskApiController',    'getTasks');
-$router->addRoute('api/peliculas/:id',     'GET',      'TaskApiController',    'getTask');
+// rutas públicas
+$router->addRoute('auth/login', 'POST', 'AuthApiController', 'login');
 
-$router->addMiddleware(new GuardMiddleware());
+$router->addRoute('peliculas', 'GET', 'peliculasController', 'getPeliculas');
+$router->addRoute('peliculas/:id', 'GET', 'peliculasController', 'getPelicula');
+$router->addRoute('peliculas/:id/resenias', 'GET', 'reseniasController', 'getResenias');
 
-$router->addRoute('api/peliculas/:id',     'DELETE',   'TaskApiController',    'deleteTask');
-$router->addRoute('api/peliculas',         'POST',     'TaskApiController',    'insertTask');
-$router->addRoute('api/peliculas/:id',     'PUT',      'TaskApiController',    'updateTask');
+// rutas CRUD sin auth
+$router->addRoute('peliculas', 'POST', 'peliculasController', 'insertPelicula');
+$router->addRoute('peliculas/:id', 'PUT', 'peliculasController', 'updatePelicula');
+$router->addRoute('peliculas/:id', 'DELETE', 'peliculasController', 'deletePelicula');
 
-$router->addRoute('api/peliculas/:id/reseñas', 'GET', 'PeliculasController', 'getResenias');
-$router->addRoute('api/peliculas/:id/reseñas', 'POST', 'PeliculasController', 'addResenia');
-$router->addRoute('api/peliculas/:id/reseñas', 'DELETE', 'PeliculasController', 'deleteResenia');
-// rutea
+$router->addRoute('peliculas/:id/resenias', 'POST', 'reseniasController', 'addResenia');
+$router->addRoute('resenias/:id', 'DELETE', 'reseniasController', 'deleteResenia');
+
 $router->route($_GET["resource"], $_SERVER['REQUEST_METHOD']);
-

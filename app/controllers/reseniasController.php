@@ -1,10 +1,10 @@
-<?php 
+<?php
 require_once './app/models/peliculasModel.php';
-class peliculaApiController{
+class reseniasController{
     private $model;
 
     public function __construct() {
-        $this->model = new peliculaModel();
+        $this->model = new PeliculaModel();
     }
     public function getresenias($req, $res){
         $peliculaId = $req->params->id;
@@ -56,4 +56,6 @@ class peliculaApiController{
     }
 
 
+
 }
+?>

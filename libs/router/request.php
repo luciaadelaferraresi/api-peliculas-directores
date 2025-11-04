@@ -4,6 +4,7 @@
         public $params = null; 
         public $query = null;
         public $user = null; 
+        public $authorization = null;
 
         public function __construct() {
             try {
