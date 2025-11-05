@@ -4,10 +4,25 @@ class peliculasController{
     private $model;
 
     public function __construct() {
-        $this->model = new peliculaModel();
+        $this->model = new peliculasModel();
     }
-    public function getPeliculas($req, $res){
-        $peliculas = $this->model->getAllPeliculas();
+    public function getpeliculas($req, $res) {
+
+        $orderBy = null;
+        if (isset($req->query->orderBy)) {
+            $orderBy = $req->query->orderBy;
+        }
+        switch ($orderBy) {
+            case 'titulo':
+            case 'anio':
+                break;
+            default:
+                return $res->json(["error" => "Campo de orden inválido"], 400);
+        }
+    
+    
+        $peliculas = $this->model->getPeliculas($orderBy);
+    
         return $res->json($peliculas, 200);
     }
     
