@@ -7,21 +7,43 @@ class peliculasController{
         $this->model = new peliculasModel();
     }
     public function getpeliculas($req, $res) {
-
-        $orderBy = null;
+    
+        // FILTRO
+        $id_director = null;
+        if (isset($req->query->id_director)) {
+            $id_director = $req->query->id_director;
+        }
+        $anio = null;
+        if (isset($req->query->anio)) {
+            $anio = $req->query->anio;
+        }
+    
+        // ORDEN
+        $orderBy = false;
         if (isset($req->query->orderBy)) {
             $orderBy = $req->query->orderBy;
         }
-        switch ($orderBy) {
-            case 'titulo':
-            case 'anio':
-                break;
-            default:
-                return $res->json(["error" => "Campo de orden inválido"], 400);
+        $orderDir = 'ASC'; 
+        if (isset($req->query->order)) {
+            $orderDir = $req->query->order;
         }
     
+        // Valido columnas permitidas
+        if ($orderBy !== false) {
+            switch($orderBy) {
+                case 'titulo':
+                case 'anio':
+                case 'id':
+                    break;
+                default:
+                    return $res->json(["error" => "Campo de orden inválido"], 400);
+            }
+        }
+        if ($orderDir != 'asc' && $orderDir != 'desc' && $orderDir != 'ASC' && $orderDir != 'DESC') {
+            return $res->json(["error" => "Dirección de orden inválida (use asc o desc)"], 400);
+        }
     
-        $peliculas = $this->model->getPeliculas($orderBy);
+        $peliculas = $this->model->getPeliculas($id_director, $anio, $orderBy,$orderDir);
     
         return $res->json($peliculas, 200);
     }

@@ -10,19 +10,48 @@ class peliculasModel{
             ''
         );
     }
-    public function getPeliculas($orderBy = null) {
+    public function getPeliculas($id_director = null, $anio = null, $orderBy = false,$orderDir = 'ASC') {
         $sql = "SELECT * FROM peliculas";
+        $params = [];
     
-        if ($orderBy) {
-            $sql .= " ORDER BY $orderBy";
+// FILTRO DIRECTOR
+    if ($id_director !== null) {
+        $sql .= " WHERE id_director = ?";
+        $params[] = $id_director;
+    }
+
+    // FILTRO AÑO
+    if ($anio !== null) {
+        if (!empty($params)) {
+            $sql .= " AND anio = ?";
+        } else {
+            $sql .= " WHERE anio = ?";
+        }
+        $params[] = $anio;
+    }
+
+    
+        // ORDEN
+        if ($orderBy !== false) {
+            switch($orderBy) {
+                case 'titulo':
+                    $sql .= " ORDER BY titulo " . $orderDir;
+                    break;
+                case 'anio':
+                    $sql .= " ORDER BY anio " . $orderDir;
+                    break;
+                case 'id':
+                    $sql .= " ORDER BY id " . $orderDir;
+                    break;
+            }
         }
     
+    
         $query = $this->db->prepare($sql);
-        $query->execute();
+        $query->execute($params);
     
         return $query->fetchAll(PDO::FETCH_OBJ);
     }
-
     public function getPelicula($id) {
         $query = $this->db->prepare("SELECT * FROM peliculas WHERE id = ?");
         $query->execute([$id]);

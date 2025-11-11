@@ -8,15 +8,37 @@ class ReseniasModel {
             ''
         );
     }
-    public function getReseniasPorPelicula($peliculaId, $orderBy = null) {
+    public function getReseniasPorPelicula($id_pelicula, $usuario = null, $puntaje = null, $orderBy = false, $orderDir = 'ASC') {
         $sql = "SELECT * FROM resenias_peliculas WHERE id_pelicula = ?";
-    
-        if ($orderBy) {
-            $sql .= " ORDER BY $orderBy";
+        $params = [$id_pelicula];
+        // FILTRO USUARIO
+        if ($usuario !== null) {
+            $sql .= " AND usuario = ?";
+            $params[] = $usuario;
         }
-    
+
+        // FILTRO PUNTAJE
+        if ($puntaje !== null) {
+            $sql .= " AND puntaje = ?";
+            $params[] = $puntaje;
+        }
+
+        // ORDEN
+        if ($orderBy !== false) {
+            switch($orderBy) {
+                case 'puntaje':
+                    $sql .= " ORDER BY puntaje " . $orderDir;
+                    break;
+                case 'usuario':
+                    $sql .= " ORDER BY usuario " . $orderDir;
+                    break;
+                case 'id':
+                    $sql .= " ORDER BY id " . $orderDir;
+                    break;
+            }
+        }
         $query = $this->db->prepare($sql);
-        $query->execute([$peliculaId]);
+        $query->execute($params);
     
         return $query->fetchAll(PDO::FETCH_OBJ);
     }

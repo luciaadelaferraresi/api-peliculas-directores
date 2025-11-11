@@ -9,25 +9,44 @@ class reseniasController{
         $this->model = new reseniasModel();
         $this->modelPeliculas = new peliculasModel();
     }
-    public function getresenias($req, $res){
+    public function getResenias($req, $res) {
         $peliculaId = $req->params->id;
+
+        $usuario = null;
+        if (isset($req->query->usuario)) {
+            $usuario = $req->query->usuario;
+        }
+        $puntaje = null;
+        if (isset($req->query->puntaje)) {
+            $puntaje = $req->query->puntaje;
+        }
     
-        
-        $orderBy = 'id'; 
+        // ORDEN
+        $orderBy = false;
         if (isset($req->query->orderBy)) {
             $orderBy = $req->query->orderBy;
         }
-    
-        switch ($orderBy) {
-            case 'puntaje':
-            case 'id':
-                break;
-            default:
-                return $res->json(["error" => "Campo de orden inválido"], 400);
+        $orderDir = 'ASC';
+        if (isset($req->query->order)) {
+            $orderDir = $req->query->order;
         }
     
-        
-        $resenias = $this->model->getReseniasPorPelicula($peliculaId, $orderBy);
+        // validamos campos permitidos
+        if ($orderBy !== false) {
+            switch($orderBy) {
+                case 'puntaje':
+                case 'id':
+                    case 'usuario':
+                    break;
+                default:
+                    return $res->json(["error" => "Campo de orden inválido"], 400);
+            }
+        }
+        if ($orderDir != 'asc' && $orderDir != 'desc' && $orderDir != 'ASC' && $orderDir != 'DESC') {
+            return $res->json(["error" => "Dirección de orden inválida (use asc o desc)"], 400);
+        }
+    
+        $resenias = $this->model->getReseniasPorPelicula($peliculaId, $usuario, $puntaje, $orderBy, $orderDir);
     
         return $res->json($resenias, 200);
     }
@@ -93,7 +112,7 @@ if (!$pelicula) {
         $usuario = $req->body->usuario;
         $comentario = $req->body->comentario;
         $puntaje = $req->body->puntaje;
-    
+     
         $this->model->updateResenia($reseniaId, $usuario, $comentario, $puntaje);
     
         $reseniaActualizada = $this->model->getResenia($reseniaId);
