@@ -8,7 +8,6 @@ class peliculasController{
     }
     public function getpeliculas($req, $res) {
     
-        // FILTRO
         $id_director = null;
         if (isset($req->query->id_director)) {
             $id_director = $req->query->id_director;
@@ -18,7 +17,7 @@ class peliculasController{
             $anio = $req->query->anio;
         }
     
-        // ORDEN
+      
         $orderBy = false;
         if (isset($req->query->orderBy)) {
             $orderBy = $req->query->orderBy;
@@ -28,7 +27,7 @@ class peliculasController{
             $orderDir = $req->query->order;
         }
     
-        // Valido columnas permitidas
+       
         if ($orderBy !== false) {
             switch($orderBy) {
                 case 'titulo':

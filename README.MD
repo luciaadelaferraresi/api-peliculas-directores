@@ -22,9 +22,9 @@ El archivo SQL exportado se encuentra en [database.sql](database.sql) y crea las
 - `Usuarios`
 - `resenias` (nueva)
 Relaciones:
-- Un **director** tiene muchas **películas**
-- Una **película** tiene un solo **director**
-- Una **película** tiene muchas **reseñas**
+- Un director tiene muchas películas
+- Una película tiene un solo director
+- Una película tiene muchas reseñas
 
 ## Instalacion / Importar la DB
 1. Cloná este repositorio: https://github.com/luciaadelaferraresi/tpe-peliculas-directores
@@ -55,14 +55,6 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 | PUT | `/api/peliculas/:id` | Editar una película |
 | DELETE | `/api/peliculas/:id` | Eliminar una película |
 
-#### Respuestas comunes
-- **200 OK**: Solicitud correcta  
-- **201 Created**: Recurso creado  
-- **400 Bad Request**: Datos incompletos o inválidos  
-- **404 Not Found**: Película no encontrada  
-
----
-
 ### Endpoints de Reseñas
 
 | Método | Endpoint | Descripción |
@@ -71,11 +63,33 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 | POST | `/api/peliculas/:id/reseñas` | Crear una reseña |
 | DELETE | `/api/peliculas/:id/reseñas` | Eliminar reseña |
 
+
+### Parámetros de filtrado y orden
+
+- Podés aplicar filtros y ordenamientos combinados en la misma consulta.
+
+| Parámetro | Descripción | Ejemplo |
+|------------|-------------|----------|
+| `id_director` | Filtra las películas por el ID del director | `/api/peliculas?id_director=2` |
+| `anio` | Filtra las películas por año de estreno | `/api/peliculas?anio=2020` |
+| `orderBy` | Campo por el cual se ordenan los resultados (`titulo`, `anio`, `id`) | `/api/peliculas?orderBy=titulo` |
+| `order` | Dirección del orden (`asc` o `desc`) | `/api/peliculas?orderBy=anio&order=desc` |
+
+- podés filtrar y ordenar las reseñas asociadas a una película específica.
+
+| Parámetro | Descripción | Ejemplo |
+|------------|-------------|----------|
+| `usuario` | Filtra reseñas por nombre de usuario | `/api/peliculas/5/resenias?usuario=pepe` |
+| `puntaje` | Filtra reseñas por puntaje | `/api/peliculas/5/resenias?puntaje=5` |
+| `orderBy` | Campo por el cual se ordenan los resultados (`puntaje`, `id`, `usuario`) | `/api/peliculas/5/resenias?orderBy=puntaje` |
+| `order` | Dirección del orden (`asc` o `desc`) | `/api/peliculas/5/resenias?orderBy=puntaje&order=desc` |
+
 #### Respuestas comunes
-- **200 OK**
-- **201 Created**
-- **400 Bad Request**
-- **404 Not Found**
+- 200 OK
+- 201 Created
+- 400 Bad Request
+- 404 Not Found
+- 401 Unauthorized
 
 ---
 
@@ -102,3 +116,18 @@ A continuación se muestran ejemplos de datos que podrían enviarse a la API.
   "comentario": "Excelente película, muy compleja pero espectacular!",
   "puntaje": 5
 }
+### Autenticación JWT
+
+Para realizar operaciones de modificación (POST, PUT, DELETE), se requiere autenticación mediante token JWT.
+
+#### Obtener Token (Login)
+- Método: `POST`
+- URL: `http://localhost/api-tpe-web2/api/auth/login`
+- Autenticación: Basic Auth  
+- Usuario: `webadmin`  
+- Contraseña: `admin`
+
+- incluir el token en el encabezado de peticiones:
+AAuthorization: Bearer <token>
+
+- Solo los usuarios con rol "admin" pueden crear, editar o eliminar películas y reseñas.
