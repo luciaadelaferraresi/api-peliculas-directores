@@ -14,13 +14,13 @@ class peliculasModel{
         $sql = "SELECT * FROM peliculas";
         $params = [];
     
-// FILTRO DIRECTOR
+
     if ($id_director !== null) {
         $sql .= " WHERE id_director = ?";
         $params[] = $id_director;
     }
 
-    // FILTRO AÑO
+   
     if ($anio !== null) {
         if (!empty($params)) {
             $sql .= " AND anio = ?";
@@ -31,7 +31,7 @@ class peliculasModel{
     }
 
     
-        // ORDEN
+       
         if ($orderBy !== false) {
             switch($orderBy) {
                 case 'titulo':

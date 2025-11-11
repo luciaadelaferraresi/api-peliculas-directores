@@ -2,11 +2,12 @@
 
 class GuardMiddleware extends Middleware {
     public function run($request, $response) {
-        if(!$request->user) {
+        if (!$request->user) {
             header("WWW-Authenticate: Bearer realm='Access to the API'");
             return $response->json("No autorizado", 401);
         }
-        else if(!in_array('ADMIN', $request->user->roles)) {
+       
+        else if (strtolower($request->user->rol) !== 'admin') {
             return $response->json("No tiene permisos suficientes", 403);
         }
     }

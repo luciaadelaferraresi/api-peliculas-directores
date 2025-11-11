@@ -21,7 +21,7 @@ class reseniasController{
             $puntaje = $req->query->puntaje;
         }
     
-        // ORDEN
+       
         $orderBy = false;
         if (isset($req->query->orderBy)) {
             $orderBy = $req->query->orderBy;
@@ -31,7 +31,7 @@ class reseniasController{
             $orderDir = $req->query->order;
         }
     
-        // validamos campos permitidos
+       
         if ($orderBy !== false) {
             switch($orderBy) {
                 case 'puntaje':
