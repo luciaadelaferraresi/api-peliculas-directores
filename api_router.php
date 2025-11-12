@@ -1,11 +1,11 @@
 <?php
-require_once './libs/router/router.php';
-require_once './libs/jwt/jwt.middleware.php'; 
-require_once './app/controllers/authApiController.php';
-require_once './app/middlewares/guardMiddleware.php';
-require_once './app/controllers/peliculasController.php';
-require_once './app/controllers/reseniasController.php';
-require_once './app/controllers/directoresController.php';
+require_once 'libs/router/router.php';
+require_once 'libs/jwt/jwt.middleware.php';
+require_once 'app/controllers/authApiController.php';
+require_once 'app/middlewares/guardMiddleware.php';
+require_once 'app/controllers/peliculasController.php';
+require_once 'app/controllers/reseniasController.php';
+require_once 'app/controllers/directoresController.php';
 
 
 $router = new Router();
@@ -23,6 +23,16 @@ $router->addRoute('peliculas/:id/resenias', 'GET', 'reseniasController', 'getRes
 $router->addRoute('peliculas', 'POST', 'peliculasController', 'insertPelicula');
 $router->addRoute('peliculas/:id', 'PUT', 'peliculasController', 'updatePelicula');
 $router->addRoute('peliculas/:id', 'DELETE', 'peliculasController', 'deletePelicula');
+
+
+$router->addRoute('directores', 'GET', 'directoresController', 'getDirectores');
+$router->addRoute('directores/:id', 'GET', 'directoresController', 'getDirector');
+
+
+$router->addRoute('directores', 'POST', 'directoresController', 'insertDirector');
+$router->addRoute('directores/:id', 'PUT', 'directoresController', 'updateDirector');
+$router->addRoute('directores/:id', 'DELETE', 'directoresController', 'deleteDirector');
+
 
 $router->addMiddleware(new GuardMiddleware());
 $router->addRoute('peliculas/:id/resenias', 'POST', 'reseniasController', 'addResenia');
