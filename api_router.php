@@ -1,11 +1,11 @@
 <?php
-require_once 'libs/router/router.php';
-require_once 'libs/jwt/jwt.middleware.php';
-require_once 'app/controllers/authApiController.php';
-require_once 'app/middlewares/guardMiddleware.php';
-require_once 'app/controllers/peliculasController.php';
-require_once 'app/controllers/reseniasController.php';
-require_once 'app/controllers/directoresController.php';
+require_once './libs/router/router.php';
+require_once './libs/jwt/jwt.middleware.php';
+require_once './app/controllers/authApiController.php';
+require_once './app/middlewares/guardMiddleware.php';
+require_once './app/controllers/peliculasController.php';
+require_once './app/controllers/reseniasController.php';
+require_once './app/controllers/directoresController.php';
 
 
 $router = new Router();
