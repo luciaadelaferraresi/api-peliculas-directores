@@ -11,9 +11,7 @@ Este proyecto consiste en un sitio web dinámico que permite visualizar películ
 Cada película pertenece a un solo director. Solo el administrador podrá agregar, modificar o eliminar películas y directores.
 
 ## Diagrama Entidad-Relación (DER)
-Se incluye el archivo [Diagrama Entidad-Relacion](DER.png) que representa las entidades "Película" y "Director" con una relación de 1 a N:
-- Un director puede tener muchas películas.
-- Una película pertenece a un solo director.
+Se incluye el archivo [Diagrama Entidad-Relacion](DER.png) ,  que representa las entidades principales del sistema.
 
 ## SQL
 El archivo SQL exportado se encuentra en [database.sql](database.sql) y crea las tablas:
