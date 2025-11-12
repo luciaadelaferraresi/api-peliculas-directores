@@ -59,9 +59,9 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 
 | Método | Endpoint | Descripción |
 |--------|---------|-------------|
-| GET | `/api/peliculas/:id/reseñas` | Listar reseñas de una película |
-| POST | `/api/peliculas/:id/reseñas` | Crear una reseña |
-| DELETE | `/api/peliculas/:id/reseñas` | Eliminar reseña |
+| GET | `/api/peliculas/:id/resenias` | Listar reseñas de una película |
+| POST | `/api/peliculas/:id/resenias` | Crear una reseña |
+| DELETE | `/api/peliculas/:id/resenias` | Eliminar reseña |
 
 
 ### Parámetros de filtrado y orden
@@ -110,7 +110,7 @@ A continuación se muestran ejemplos de datos que podrían enviarse a la API.
   "genero": "Sci-Fi",
   "id_director": 3
 }
-### Crear reseña (POST `/api/peliculas/5/reseñas`)
+### Crear reseña (POST `/api/peliculas/5/resenias`)
 {
   "usuario": "pepe",
   "comentario": "Excelente película, muy compleja pero espectacular!",

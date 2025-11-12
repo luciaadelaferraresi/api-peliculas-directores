@@ -6,7 +6,7 @@ class peliculasController{
     public function __construct() {
         $this->model = new peliculasModel();
     }
-    public function getpeliculas($req, $res) {
+    public function getPeliculas($req, $res) {
     
         $id_director = null;
         if (isset($req->query->id_director)) {

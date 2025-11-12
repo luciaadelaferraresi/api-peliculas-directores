@@ -23,8 +23,9 @@ class UsuarioModel {
 
    
     public function insert($email, $password, $rol = 'user') {
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
         $query = $this->db->prepare('INSERT INTO usuarios (email, password, rol) VALUES (?, ?, ?)');
-        $query->execute([$email, $password, $rol]);
+        $query->execute([$email, $passwordHash, $rol]);
         return $this->db->lastInsertId();
     }
 }

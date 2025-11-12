@@ -10,6 +10,10 @@ class reseniasController{
         $this->modelPeliculas = new peliculasModel();
     }
     public function getResenias($req, $res) {
+        if (!isset($req->params->id)) {
+            return $res->json(['error' => 'Falta el ID de la película'], 400);
+        }
+    
         $peliculaId = $req->params->id;
 
         $usuario = null;
