@@ -27,7 +27,7 @@ Relaciones:
 - Una película tiene muchas reseñas
 
 ## Instalacion / Importar la DB
-1. Cloná este repositorio: https://github.com/luciaadelaferraresi/tpe-peliculas-directores
+1. Cloná este repositorio: https://github.com/luciaadelaferraresi/api-peliculas-directores
 2. Editá config.php (en la raíz) para que coincida con tu entorno local
 3. El sistema accede a la base de datos utilizando las constantes definidas en config.php.
 4. Si la base de datos no existe, se creará automáticamente y se cargará con datos iniciales definidos en database.sql
@@ -36,8 +36,8 @@ Relaciones:
 
 # usuario administrador:
 Podes iniciar sesión con las siguientes credenciales:
-usuario/email: `webadmin`
-contraseña: `admin`
+- usuario/email: `webadmin`
+- contraseña: `admin`
 
 ## API REST
 
@@ -88,8 +88,8 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 - 200 OK
 - 201 Created
 - 400 Bad Request
-- 404 Not Found
 - 401 Unauthorized
+- 404 Not Found
 
 ---
 
@@ -128,6 +128,6 @@ Para realizar operaciones de modificación (POST, PUT, DELETE), se requiere aute
 - Contraseña: `admin`
 
 - incluir el token en el encabezado de peticiones:
-AAuthorization: Bearer <token>
+  Authorization: Bearer <token>
 
 - Solo los usuarios con rol "admin" pueden crear, editar o eliminar películas y reseñas.
