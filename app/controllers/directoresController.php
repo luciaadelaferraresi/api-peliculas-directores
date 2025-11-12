@@ -1,13 +1,13 @@
 <?php
-require_once 'app/models/directoresModel.php';
+require_once './app/models/directoresModel.php';
 
-class directorController
+class directoresController
 {
     private $model;
 
     public function __construct()
     {
-        $this->model = new DirectorModel();
+        $this->model = new DirectoresModel();
     }
 
     public function getDirectores($req, $res)
@@ -53,14 +53,13 @@ class directorController
             return $res->json(['error' => 'Director no encontrado'], 404);
         }
 
-        $nombre = $req->body->nombre ?? '';
-        $nacionalidad = $req->body->nacionalidad ?? '';
+        $data = $req->body;
 
-        if (!$nombre || !$nacionalidad) {
+        if (empty($data->nombre) || empty($data->nacionalidad)) {
             return $res->json(['error' => 'Faltan datos (nombre y/o nacionalidad)'], 400);
         }
 
-        $this->model->updateDirector($directorId, $nombre, $nacionalidad);
+        $this->model->updateDirector($directorId, $data);
 
         $directorActualizado = $this->model->GetDirector($directorId);
         return $res->json($directorActualizado, 200);
