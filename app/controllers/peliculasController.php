@@ -85,6 +85,7 @@ class peliculasController{
         return $res->json($peliculaActualizada, 200);
     }
     public function deletePelicula($req, $res) {
+        
         $peliculaId = $req->params->id;
         $pelicula = $this->model->getPelicula($peliculaId);
         if (!$pelicula) {

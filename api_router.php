@@ -9,8 +9,10 @@ require_once './app/controllers/directoresController.php';
 
 
 $router = new Router();
-$router->addMiddleware(new JWTMiddleware());
 $router->addRoute('auth/login', 'POST', 'AuthApiController', 'login');
+
+
+$router->addMiddleware(new JWTMiddleware());
 
 $router->addRoute('peliculas', 'GET', 'peliculasController', 'getPeliculas');
 $router->addRoute('peliculas/:id', 'GET', 'peliculasController', 'getPelicula');

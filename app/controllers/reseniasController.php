@@ -54,7 +54,7 @@ class reseniasController{
     
         return $res->json($resenias, 200);
     }
-    public function getresenia($req, $res){
+    public function getResenia($req, $res){
         $reseniaId = $req->params->id;
 
         $resenia = $this->model->getResenia($reseniaId);
@@ -64,7 +64,7 @@ class reseniasController{
     
         return $res->json($resenia, 200);
     }
-    public function deleteresenia($req, $res){
+    public function deleteResenia($req, $res){
         $reseniaId = $req->params->id;
         $resenia = $this->model->getResenia($reseniaId);
         if(!$resenia){
@@ -79,7 +79,7 @@ class reseniasController{
     
         return $res->json(['mensaje' => 'Reseña eliminada correctamente'], 200);
     }
-    public function addresenia($req, $res){
+    public function addResenia($req, $res){
         $peliculaId = $req->params->id;
         if (empty($req->body->usuario) || empty($req->body->comentario) || !isset($req->body->puntaje)) {
             return $res->json(['error' => 'Faltan datos'], 400);
@@ -101,7 +101,7 @@ if (!$pelicula) {
     $resenia = $this->model->getResenia($nuevoId);
     return $res->json($resenia, 201);
     }
-    public function updateresenia($req, $res) {
+    public function updateResenia($req, $res) {
         $reseniaId = $req->params->id;
         $resenia = $this->model->getResenia($reseniaId);
     

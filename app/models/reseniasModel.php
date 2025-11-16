@@ -11,19 +11,19 @@ class ReseniasModel {
     public function getReseniasPorPelicula($id_pelicula, $usuario = null, $puntaje = null, $orderBy = false, $orderDir = 'ASC') {
         $sql = "SELECT * FROM resenias_peliculas WHERE id_pelicula = ?";
         $params = [$id_pelicula];
-        // FILTRO USUARIO
+  
         if ($usuario !== null) {
             $sql .= " AND usuario = ?";
             $params[] = $usuario;
         }
 
-        // FILTRO PUNTAJE
+
         if ($puntaje !== null) {
             $sql .= " AND puntaje = ?";
             $params[] = $puntaje;
         }
 
-        // ORDEN
+    
         if ($orderBy !== false) {
             switch($orderBy) {
                 case 'puntaje':
