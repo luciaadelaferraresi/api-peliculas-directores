@@ -1,7 +1,6 @@
 <?php
-require_once './app/models/directoresModel.php';
 
-class directoresController
+class directoresModel
 {
     private $model;
 
