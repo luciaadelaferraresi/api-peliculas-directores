@@ -15,9 +15,9 @@ Se incluye el archivo [Diagrama Entidad-Relacion](DER.png) ,  que representa las
 
 ## SQL
 El archivo SQL exportado se encuentra en [database.sql](database.sql) y crea las tablas:
-- `Películas`  
-- `Directores`
-- `Usuarios`
+- `películas`  
+- `directores`
+- `usuarios`
 - `resenias` (nueva)
 Relaciones:
 - Un director tiene muchas películas
@@ -59,7 +59,9 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 |--------|---------|-------------|
 | GET | `/api/peliculas/:id/resenias` | Listar reseñas de una película |
 | POST | `/api/peliculas/:id/resenias` | Crear una reseña |
-| DELETE | `/api/peliculas/:id/resenias` | Eliminar reseña |
+| DELETE | `/api/resenias/:id` | Eliminar reseña |
+ DELETE | `/api/resenias/:id` | Eliminar reseña |
+  DELETE | `/api/resenias/:id` | Eliminar reseña |
 
 
 ### Parámetros de filtrado y orden
