@@ -58,10 +58,10 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 | Método | Endpoint | Descripción |
 |--------|---------|-------------|
 | GET | `/api/peliculas/:id/resenias` | Listar reseñas de una película |
+| GET | `/api/resenias/:id` | Obtener 1 reseña |
 | POST | `/api/peliculas/:id/resenias` | Crear una reseña |
 | DELETE | `/api/resenias/:id` | Eliminar reseña |
- DELETE | `/api/resenias/:id` | Eliminar reseña |
-  DELETE | `/api/resenias/:id` | Eliminar reseña |
+| PUT | `/api/resenias/:id` | Editar reseña |
 
 
 ### Parámetros de filtrado y orden
