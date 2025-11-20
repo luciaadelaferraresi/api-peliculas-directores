@@ -19,7 +19,7 @@ El archivo SQL exportado se encuentra en [database.sql](database.sql) y crea las
 - `directores`
 - `usuarios`
 - `resenias` (nueva)
-Relaciones:
+- Relaciones:
 - Un director tiene muchas películas
 - Una película tiene un solo director
 - Una película tiene muchas reseñas
@@ -28,7 +28,6 @@ Relaciones:
 1. Cloná este repositorio: https://github.com/luciaadelaferraresi/api-peliculas-directores
 2. Editá config.php (en la raíz) para que coincida con tu entorno local
 3. El sistema accede a la base de datos utilizando las constantes definidas en config.php.
-4. Si la base de datos no existe, se creará automáticamente y se cargará con datos iniciales definidos en database.sql
 5. Iniciá Apache y MySQL desde XAMPP.
 6. Abrí el navegador y accedé a la carpeta del proyecto, por ejemplo: http://localhost/nombre-de-tu-carpeta/
 
@@ -68,6 +67,8 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 
 - Podés aplicar filtros y ordenamientos combinados en la misma consulta.
 
+- Peliculas - filtros y ordenamiento.
+
 | Parámetro | Descripción | Ejemplo |
 |------------|-------------|----------|
 | `id_director` | Filtra las películas por el ID del director | `/api/peliculas?id_director=2` |
@@ -75,7 +76,8 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 | `orderBy` | Campo por el cual se ordenan los resultados (`titulo`, `anio`, `id`) | `/api/peliculas?orderBy=titulo` |
 | `order` | Dirección del orden (`asc` o `desc`) | `/api/peliculas?orderBy=anio&order=desc` |
 
-- podés filtrar y ordenar las reseñas asociadas a una película específica.
+- Reseñas - filtros y ordenamiento.
+- Podés filtrar y ordenar las reseñas asociadas a una película específica.
 
 | Parámetro | Descripción | Ejemplo |
 |------------|-------------|----------|
@@ -97,25 +99,31 @@ Esta API permite gestionar **películas** y sus **reseñas**.
 A continuación se muestran ejemplos de datos que podrían enviarse a la API.
 
 ### Crear pelicula (POST `/api/peliculas`)
+```json
 {
   "titulo": "Inception",
   "anio": 2010,
   "genero": "Ciencia Ficción",
   "id_director": 3
 }
+```
 ### Editar pelicula (PUT `/api/peliculas/5`)
+```json
 {
   "titulo": "Inception - Edición Especial",
   "anio": 2010,
   "genero": "Sci-Fi",
   "id_director": 3
 }
+```
 ### Crear reseña (POST `/api/peliculas/5/resenias`)
+```json
 {
   "usuario": "pepe",
   "comentario": "Excelente película, muy compleja pero espectacular!",
   "puntaje": 5
 }
+```
 ### Autenticación JWT
 
 Para realizar operaciones de modificación (POST, PUT, DELETE), se requiere autenticación mediante token JWT.
